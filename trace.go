@@ -2,12 +2,7 @@
 
 package websocket
 
-import (
-	"crypto/tls"
-	"net/http/httptrace"
-)
-
-func doHandshakeWithTrace(trace *httptrace.ClientTrace, tlsConn *tls.Conn, cfg *tls.Config) error {
+/*func doHandshakeWithTrace(trace *httptrace.ClientTrace, tlsConn *tls.Conn, cfg *tls.Config) error {
 	if trace.TLSHandshakeStart != nil {
 		trace.TLSHandshakeStart()
 	}
@@ -17,3 +12,4 @@ func doHandshakeWithTrace(trace *httptrace.ClientTrace, tlsConn *tls.Conn, cfg *
 	}
 	return err
 }
+*/

@@ -6,7 +6,10 @@
 
 package websocket
 
-import "crypto/tls"
+//import "crypto/tls"
+import (
+	tls "github.com/refraction-networking/utls"
+)
 
 func cloneTLSConfig(cfg *tls.Config) *tls.Config {
 	if cfg == nil {

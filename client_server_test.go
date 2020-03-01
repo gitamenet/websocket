@@ -7,7 +7,7 @@ package websocket
 import (
 	"bytes"
 	"context"
-	"crypto/tls"
+
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/binary"
@@ -25,6 +25,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	tls "github.com/refraction-networking/utls"
 )
 
 var cstUpgrader = Upgrader{

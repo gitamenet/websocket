@@ -6,7 +6,10 @@
 
 package websocket
 
-import "crypto/tls"
+//import "crypto/tls"
+import (
+	tls "github.com/refraction-networking/utls"
+)
 
 // cloneTLSConfig clones all public fields except the fields
 // SessionTicketsDisabled and SessionTicketKey. This avoids copying the

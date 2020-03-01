@@ -7,7 +7,8 @@ package websocket
 import (
 	"bytes"
 	"context"
-	"crypto/tls"
+
+	//"crypto/tls"
 	"errors"
 	"io"
 	"io/ioutil"
@@ -17,7 +18,43 @@ import (
 	"net/url"
 	"strings"
 	"time"
+
+	tls "github.com/refraction-networking/utls"
 )
+
+/*func copyConfig(c *tls.Config) *utls.Config {
+	return &utls.Config{
+		Rand: c.Rand,
+		Time: c.Time,
+		//Certificates:             c.Certificates,
+		//NameToCertificate:        c.NameToCertificate,
+		//GetCertificate:           c.GetCertificate,
+		RootCAs:    c.RootCAs,
+		NextProtos: c.NextProtos,
+		ServerName: c.ServerName,
+		//ClientAuth:               c.ClientAuth,
+		ClientCAs:                c.ClientCAs,
+		InsecureSkipVerify:       c.InsecureSkipVerify,
+		CipherSuites:             c.CipherSuites,
+		PreferServerCipherSuites: c.PreferServerCipherSuites,
+		//ClientSessionCache:       c.ClientSessionCache,
+		MinVersion: c.MinVersion,
+		MaxVersion: c.MaxVersion,
+		//CurvePreferences:         c.CurvePreferences,
+
+		//NextProtos:         c.NextProtos,
+		//ServerName:         c.ServerName,
+		//InsecureSkipVerify: c.InsecureSkipVerify,
+		//MinVersion:         utls.VersionTLS12,
+		//MaxVersion:         utls.VersionTLS12,
+	}
+}
+
+func UClient(c net.Conn, config *tls.Config) *utls.UConn {
+	uConfig := copyConfig(config)
+	return utls.UClient(c, uConfig, utls.HelloChrome_Auto)
+}
+*/
 
 // ErrBadHandshake is returned when the server response to opening handshake is
 // invalid.
@@ -309,16 +346,19 @@ func (d *Dialer) DialContext(ctx context.Context, urlStr string, requestHeader h
 		if cfg.ServerName == "" {
 			cfg.ServerName = hostNoPort
 		}
-		tlsConn := tls.Client(netConn, cfg)
+		tlsConn := tls.UClient(netConn, &tls.Config{
+			ServerName: cfg.ServerName,
+		}, tls.HelloChrome_Auto).Conn
+		//tlsConn := UClient(netConn, cfg)
+		//fmt.Println(tlsConn)
 		netConn = tlsConn
-
 		var err error
-		if trace != nil {
+		/*if trace != nil {
 			err = doHandshakeWithTrace(trace, tlsConn, cfg)
 		} else {
 			err = doHandshake(tlsConn, cfg)
 		}
-
+		*/
 		if err != nil {
 			return nil, nil, err
 		}

@@ -328,7 +328,6 @@ func (c *Conn) setReadRemaining(n int64) error {
 	if n < 0 {
 		return ErrReadLimit
 	}
-
 	c.readRemaining = n
 	return nil
 }

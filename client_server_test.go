@@ -265,7 +265,7 @@ func TestDialCookieJar(t *testing.T) {
 	}
 	defer ws.Close()
 
-	var  string
+	var gorilla string
 	var sessionID string
 	for _, c := range d.Jar.Cookies(u) {
 		if c.Name == "gorilla" {
